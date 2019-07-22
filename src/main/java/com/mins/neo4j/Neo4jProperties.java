@@ -1,5 +1,6 @@
 package com.mins.neo4j;
 
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import java.util.Properties;
  *  @Author hsfeng
  *  @Create 2019/7/17 0:36
  * */
-@Component
+//@Component
 @ConfigurationProperties(prefix = "com.mins.neo4j")
 public class Neo4jProperties {
 
