@@ -15,20 +15,23 @@ public class NodeObject {
     @Id @GeneratedValue
     private Long id;
     @Property
+    private Long groupId = 0L;
+    @Property
     private String label;
     @Properties
     private Map<String, Object> properties;
 
     public NodeObject(){
-        this(null, null);
+        this(null, null, null);
     }
 
-    public NodeObject(String label, Map<String, Object> properties){
-        this(null, label, properties);
+    public NodeObject(Long groupId, String label, Map<String, Object> properties){
+        this(null, groupId, label, properties);
     }
 
-    public NodeObject(Long id, String label, Map<String, Object> properties) {
+    public NodeObject(Long id, Long groupId, String label, Map<String, Object> properties) {
         this.id = id;
+        this.groupId = groupId;
         this.label = label;
         this.properties = properties;
     }
@@ -39,6 +42,14 @@ public class NodeObject {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public String getLabel() {
@@ -58,26 +69,28 @@ public class NodeObject {
     }
 
     @Override
-    public String toString() {
-        return "NodeObject{" +
-                "id=" + id +
-                ", label='" + label + '\'' +
-                ", properties=" + properties +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NodeObject that = (NodeObject) o;
         return Objects.equals(id, that.id) &&
+                Objects.equals(groupId, that.groupId) &&
                 Objects.equals(label, that.label) &&
                 Objects.equals(properties, that.properties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, label, properties);
+        return Objects.hash(id, groupId, label, properties);
+    }
+
+    @Override
+    public String toString() {
+        return "NodeObject{" +
+                "id=" + id +
+                ", groupId=" + groupId +
+                ", label='" + label + '\'' +
+                ", properties=" + properties +
+                '}';
     }
 }

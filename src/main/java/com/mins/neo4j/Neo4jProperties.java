@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.Properties;
 
@@ -11,15 +12,14 @@ import java.util.Properties;
  *  @Author hsfeng
  *  @Create 2019/7/17 0:36
  * */
-//@Component
-@ConfigurationProperties(prefix = "com.mins.neo4j")
+@Repository
 public class Neo4jProperties {
 
-    @Value("URI")
+    @Value("${com.mins.neo4j.URI}")
     public String URI;
-    @Value("username")
+    @Value("${com.mins.neo4j.username}")
     public String username;
-    @Value("password")
+    @Value("${com.mins.neo4j.password}")
     public String password;
 
     public String getURI() {
@@ -54,4 +54,12 @@ public class Neo4jProperties {
         return properties;
     }
 
+    @Override
+    public String toString() {
+        return "Neo4jProperties{" +
+                "URI='" + URI + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

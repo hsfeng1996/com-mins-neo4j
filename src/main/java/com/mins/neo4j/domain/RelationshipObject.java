@@ -15,6 +15,8 @@ public class RelationshipObject {
     @Id @GeneratedValue
     private Long id;
     @Property
+    private Long groupId = 0L;
+    @Property
     private String type;
     @Properties
     private Map<String, Object> properties;
@@ -24,15 +26,16 @@ public class RelationshipObject {
     private NodeObject endNodeObject;
 
     public RelationshipObject(){
-        this(null, null, null, null);
+        this(null, null, null, null, null);
     }
 
-    public RelationshipObject(String type, Map<String, Object> properties, NodeObject startNodeObject, NodeObject endNodeObject){
-        this(null, type, properties, startNodeObject, endNodeObject);
+    public RelationshipObject(Long groupId, String type, Map<String, Object> properties, NodeObject startNodeObject, NodeObject endNodeObject){
+        this(null, groupId, type, properties, startNodeObject, endNodeObject);
     }
 
-    public RelationshipObject(Long id, String type, Map<String, Object> properties, NodeObject startNodeObject, NodeObject endNodeObject) {
+    public RelationshipObject(Long id, Long groupId, String type, Map<String, Object> properties, NodeObject startNodeObject, NodeObject endNodeObject) {
         this.id = id;
+        this.groupId =groupId;
         this.type = type;
         this.properties = properties;
         this.startNodeObject = startNodeObject;
@@ -45,6 +48,14 @@ public class RelationshipObject {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public String getType() {
@@ -85,6 +96,7 @@ public class RelationshipObject {
         if (o == null || getClass() != o.getClass()) return false;
         RelationshipObject that = (RelationshipObject) o;
         return Objects.equals(id, that.id) &&
+                Objects.equals(groupId, that.groupId) &&
                 Objects.equals(type, that.type) &&
                 Objects.equals(properties, that.properties) &&
                 Objects.equals(startNodeObject, that.startNodeObject) &&
@@ -93,33 +105,18 @@ public class RelationshipObject {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, properties, startNodeObject, endNodeObject);
+        return Objects.hash(id, groupId, type, properties, startNodeObject, endNodeObject);
     }
 
     @Override
     public String toString() {
         return "RelationshipObject{" +
                 "id=" + id +
+                ", groupId=" + groupId +
                 ", type='" + type + '\'' +
                 ", properties=" + properties +
                 ", startNodeObject=" + startNodeObject +
                 ", endNodeObject=" + endNodeObject +
                 '}';
     }
-/*public static boolean type(String type) {
-        boolean flag = true;
-        try {
-            RelationshipEntity relationshipEntity = RelationshipObject.class.getAnnotation(RelationshipEntity.class);
-            InvocationHandler invocationHandler = Proxy.getInvocationHandler(relationshipEntity);
-            Field field = invocationHandler.getClass().getDeclaredField("memberValues");
-            field.setAccessible(true);
-            Map<String, Object> memberValues = (Map<String, Object>)field.get(invocationHandler);
-            memberValues.put("value", type);
-        }catch (Exception e){
-            flag = false;
-            e.printStackTrace();
-        }finally {
-            return flag;
-        }
-    }*/
 }

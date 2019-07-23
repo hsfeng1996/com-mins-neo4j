@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 
+import javax.swing.*;
 import java.util.Properties;
 
 /*
@@ -20,16 +23,11 @@ import java.util.Properties;
  *  @Create 2019/7/17 0:36
  * */
 @Configuration
-@EnableConfigurationProperties(Neo4jProperties.class)
+@Import(Neo4jProperties.class)
 public class Neo4jConfiguration {
 
     @Autowired
-    Neo4jProperties neo4jProperties;
-
-    @Bean
-    public Neo4jProperties neo4jProperties(){
-        return neo4jProperties;
-    }
+    private Neo4jProperties neo4jProperties;
 
     @Bean
     public SessionFactory sessionFactory(){
