@@ -35,7 +35,7 @@ public class RelationshipObject {
 
     public RelationshipObject(Long id, Long groupId, String type, Map<String, Object> properties, NodeObject startNodeObject, NodeObject endNodeObject) {
         this.id = id;
-        this.groupId =groupId;
+        this.groupId = (groupId==null || groupId<0)?0L:groupId;
         this.type = type;
         this.properties = properties;
         this.startNodeObject = startNodeObject;

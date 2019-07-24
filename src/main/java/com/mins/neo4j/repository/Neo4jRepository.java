@@ -4,6 +4,7 @@ import com.mins.neo4j.domain.GraphObject;
 import com.mins.neo4j.domain.NodeObject;
 import com.mins.neo4j.domain.RelationshipObject;
 import org.springframework.data.neo4j.annotation.Query;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ import java.util.Map;
  *  @Create 2019/7/21 17:12
  * */
 @SuppressWarnings("unchecked")
-@Repository
+@NoRepositoryBean
 public interface Neo4jRepository extends org.springframework.data.neo4j.repository.Neo4jRepository{
 
     Iterable<NodeObject> findByLabel(String label);
@@ -72,8 +73,8 @@ public interface Neo4jRepository extends org.springframework.data.neo4j.reposito
     }
 
     default void deleteGroupObject(GraphObject graphObject){
-        deleteNodeObjects(graphObject.getGroupId());
         deleteRelationshipObjects(graphObject.getGroupId());
+        deleteNodeObjects(graphObject.getGroupId());
     }
 
     /*

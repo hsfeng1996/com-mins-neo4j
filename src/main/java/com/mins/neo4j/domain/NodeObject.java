@@ -31,7 +31,7 @@ public class NodeObject {
 
     public NodeObject(Long id, Long groupId, String label, Map<String, Object> properties) {
         this.id = id;
-        this.groupId = groupId;
+        this.groupId = (groupId==null || groupId<0)?0L:groupId;
         this.label = label;
         this.properties = properties;
     }
