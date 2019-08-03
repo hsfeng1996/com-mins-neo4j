@@ -21,9 +21,9 @@ public class RelationshipObject {
     @Properties
     private Map<String, Object> properties;
     @StartNode
-    private NodeObject startNodeObject;
+    private NodeObject sourceNode;
     @EndNode
-    private NodeObject endNodeObject;
+    private NodeObject targetNode;
 
     public RelationshipObject(){
         this(null, null, null, null, null);
@@ -38,8 +38,8 @@ public class RelationshipObject {
         this.groupId = (groupId==null || groupId<0)?0L:groupId;
         this.type = type;
         this.properties = properties;
-        this.startNodeObject = startNodeObject;
-        this.endNodeObject = endNodeObject;
+        this.sourceNode = startNodeObject;
+        this.targetNode = endNodeObject;
     }
 
     public Long getId() {
@@ -74,20 +74,20 @@ public class RelationshipObject {
         this.properties = properties;
     }
 
-    public NodeObject getStartNodeObject() {
-        return startNodeObject;
+    public NodeObject getSourceNode() {
+        return sourceNode;
     }
 
-    public void setStartNodeObject(NodeObject startNodeObject) {
-        this.startNodeObject = startNodeObject;
+    public void setSourceNode(NodeObject sourceNode) {
+        this.sourceNode = sourceNode;
     }
 
-    public NodeObject getEndNodeObject() {
-        return endNodeObject;
+    public NodeObject getTargetNode() {
+        return targetNode;
     }
 
-    public void setEndNodeObject(NodeObject endNodeObject) {
-        this.endNodeObject = endNodeObject;
+    public void setTargetNode(NodeObject targetNode) {
+        this.targetNode = targetNode;
     }
 
     @Override
@@ -99,13 +99,13 @@ public class RelationshipObject {
                 Objects.equals(groupId, that.groupId) &&
                 Objects.equals(type, that.type) &&
                 Objects.equals(properties, that.properties) &&
-                Objects.equals(startNodeObject, that.startNodeObject) &&
-                Objects.equals(endNodeObject, that.endNodeObject);
+                Objects.equals(sourceNode, that.sourceNode) &&
+                Objects.equals(targetNode, that.targetNode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, groupId, type, properties, startNodeObject, endNodeObject);
+        return Objects.hash(id, groupId, type, properties, sourceNode, targetNode);
     }
 
     @Override
@@ -115,8 +115,8 @@ public class RelationshipObject {
                 ", groupId=" + groupId +
                 ", type='" + type + '\'' +
                 ", properties=" + properties +
-                ", startNodeObject=" + startNodeObject +
-                ", endNodeObject=" + endNodeObject +
+                ", sourceNode=" + sourceNode +
+                ", targetNode=" + targetNode +
                 '}';
     }
 }

@@ -1,17 +1,21 @@
 package com.mins.neo4j;
 
 import com.mins.neo4j.annotation.Neo4jTransactional;
+import com.mins.neo4j.domain.GraphObject;
 import com.mins.neo4j.domain.NodeObject;
 import com.mins.neo4j.domain.RelationshipObject;
 import com.mins.neo4j.repository.Neo4jRepository;
 import org.neo4j.ogm.session.SessionFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -26,8 +30,12 @@ public class Neo4jRunner implements CommandLineRunner {
     SessionFactory sessionFactory;
     @Autowired
     Neo4jRepository neo4jRepository;
-    @Autowired
-    Logger neo4jLogger;
+
+    private Logger neo4jLogger;
+
+    public Neo4jRunner(){
+        this.neo4jLogger = LoggerFactory.getLogger(Neo4jRunner.class);
+    }
 
     @Override
     public void run(String... args){
@@ -54,8 +62,8 @@ public class Neo4jRunner implements CommandLineRunner {
         properties2.put("uuid", 13L);
         relationshipObject.setType("hello");
         relationshipObject.setProperties(properties2);
-        relationshipObject.setStartNodeObject(startNodeObject);
-        relationshipObject.setEndNodeObject(endNodeObject);
+        relationshipObject.setSourceNode(startNodeObject);
+        relationshipObject.setTargetNode(endNodeObject);
 
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -89,7 +97,7 @@ public class Neo4jRunner implements CommandLineRunner {
         }*/
     }
 
-    @Neo4jTransactional   // Transactional
+    /*@Neo4jTransactional   // Transactional
     public void save(){
         String label = "人物";
         Map<String, Object> properties = new HashMap<>();
@@ -97,6 +105,30 @@ public class Neo4jRunner implements CommandLineRunner {
         properties.put("uuid", 15L);
         NodeObject startNodeObject = new NodeObject(-1L, label, properties);
         neo4jRepository.save(startNodeObject);
+    }*/
+
+    @Neo4jTransactional   // Transactional
+    public void save(){
+        String label = "人物";
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("name", "heshaofeng");
+        NodeObject nodeObject = new NodeObject(1L, label, properties);
+//        graphRepository.save(nodeObject);
+        Map<String, Object> properties1 = new HashMap<>();
+        properties1.put("name", "hsfeng");
+        NodeObject nodeObject1 = new NodeObject(1L, label, properties1);
+        String type = "同类";
+        Map<String, Object> properties2 = new HashMap<>();
+        properties2.put("type", "归类");
+        RelationshipObject relationshipObject = new RelationshipObject(1L, type, properties2,nodeObject, nodeObject1);
+        List<NodeObject> nodeObjects = new ArrayList<>();
+        List<RelationshipObject> relationshipObjects = new ArrayList<>();
+        nodeObjects.add(nodeObject);
+        nodeObjects.add(nodeObject1);
+        relationshipObjects.add(relationshipObject);
+//        graphRepository.saveNodeObjects(nodeObjects);
+        GraphObject graphObject = new GraphObject(1L, nodeObjects, relationshipObjects);
+        neo4jRepository.saveGroupObject(graphObject);
     }
 
     @Neo4jTransactional   // Transactional
