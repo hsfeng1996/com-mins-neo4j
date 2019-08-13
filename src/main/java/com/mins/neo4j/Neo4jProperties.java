@@ -12,14 +12,14 @@ import java.util.Properties;
  *  @Author hsfeng
  *  @Create 2019/7/17 0:36
  * */
-@Repository
+@Component
+@ConfigurationProperties(prefix = "com.mins.neo4j")
 public class Neo4jProperties {
 
-    @Value("${com.mins.neo4j.URI}")
     public String URI;
-    @Value("${com.mins.neo4j.username}")
+
     public String username;
-    @Value("${com.mins.neo4j.password}")
+
     public String password;
 
     public String getURI() {

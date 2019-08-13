@@ -15,6 +15,6 @@ public class MapHash {
             Integer hash = v.hashCode();
             hashMap.put(hash, v);
         }
-        return null;
+        return hashMap;
     }
 }

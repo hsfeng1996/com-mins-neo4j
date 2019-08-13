@@ -23,8 +23,8 @@ import java.util.Properties;
  *  @Create 2019/7/17 0:36
  * */
 @Configuration
-@Import(Neo4jProperties.class)
-public class Neo4jConfiguration {
+@EnableConfigurationProperties(Neo4jProperties.class)
+public class Neo4jAutoConfiguration {
 
     @Autowired
     private Neo4jProperties neo4jProperties;
@@ -58,6 +58,6 @@ public class Neo4jConfiguration {
 
     @Bean(name = "neo4jLogger")
     public Logger logger(){
-        return LoggerFactory.getLogger("com.mins.neo4j");
+        return LoggerFactory.getLogger(Neo4jAutoConfiguration.class);
     }
 }
