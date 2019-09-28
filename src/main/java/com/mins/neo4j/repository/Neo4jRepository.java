@@ -49,6 +49,12 @@ public interface Neo4jRepository extends org.springframework.data.neo4j.reposito
     @Query("MATCH p=()-[r:RelationshipObject]->() WHERE r.type={type} DELETE p")
     void deleteByType(@Param("type") String type);
 
+    @Query("MATCH p=(n:NodeObject)-[r:RelationshipObject]-() WHERE id(n)={id} AND n.groupId={groupId} DELETE r,n")
+    void deleteNodeObjectById(@Param("id") Long id, @Param("groupId") Long groupId);
+
+    @Query("MATCH p=()-[r:RelationshipObject]-() WHERE id(r)={id} AND r.groupId={groupId} DELETE p")
+    void deleteRelationshipObjectById(@Param("id") Long id, @Param("groupId") Long groupId);
+
     default void deleteNodeObjects(Iterable<NodeObject> iterable){
         deleteAll(iterable);
     }
