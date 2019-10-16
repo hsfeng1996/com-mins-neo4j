@@ -5,10 +5,11 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Objects;
 
-/*
+/**
+ *
  *  @Author hsfeng
  *  @Create 2019/7/20 20:31
- * */
+ */
 public class GraphObject {
 
     private Long groupId = 0L;
@@ -59,8 +60,12 @@ public class GraphObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
         GraphObject that = (GraphObject) o;
         return Objects.equals(groupId, that.groupId) &&
                 Objects.equals(nodeObjects, that.nodeObjects) &&

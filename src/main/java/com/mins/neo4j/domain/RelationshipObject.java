@@ -5,10 +5,11 @@ import org.neo4j.ogm.annotation.*;
 import java.util.Map;
 import java.util.Objects;
 
-/*
+/**
+ *
  *  @Author hsfeng
  *  @Create 2019/7/18 23:41
- * */
+ */
 @RelationshipEntity(type = "RelationshipObject")
 public class RelationshipObject {
 
@@ -92,8 +93,12 @@ public class RelationshipObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
         RelationshipObject that = (RelationshipObject) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(groupId, that.groupId) &&

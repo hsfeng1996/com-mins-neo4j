@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Properties;
 
-/*
+/**
+ *
  *  @Author hsfeng
  *  @Create 2019/7/17 0:36
- * */
+ */
 @Component
 @ConfigurationProperties(prefix = "com.mins.neo4j")
 public class Neo4jProperties {

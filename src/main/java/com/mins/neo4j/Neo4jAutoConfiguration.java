@@ -18,10 +18,11 @@ import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import javax.swing.*;
 import java.util.Properties;
 
-/*
+/**
+ *
  *  @Author hsfeng
  *  @Create 2019/7/17 0:36
- * */
+ */
 @Configuration
 @EnableConfigurationProperties(Neo4jProperties.class)
 public class Neo4jAutoConfiguration {

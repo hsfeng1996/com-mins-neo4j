@@ -5,14 +5,15 @@ import org.neo4j.ogm.annotation.*;
 import java.util.Map;
 import java.util.Objects;
 
-/*
- *  @Author hsfeng
- *  @Create 2019/7/18 20:04
- * */
+/**
+ * @Author hsfeng
+ * @Create 2019/7/18 20:04
+ */
 @NodeEntity
 public class NodeObject {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
     @Property
     private Long groupId = 0L;
@@ -21,17 +22,17 @@ public class NodeObject {
     @Properties
     private Map<String, Object> properties;
 
-    public NodeObject(){
+    public NodeObject() {
         this(null, null, null);
     }
 
-    public NodeObject(Long groupId, String label, Map<String, Object> properties){
+    public NodeObject(Long groupId, String label, Map<String, Object> properties) {
         this(null, groupId, label, properties);
     }
 
     public NodeObject(Long id, Long groupId, String label, Map<String, Object> properties) {
         this.id = id;
-        this.groupId = (groupId==null || groupId<0)?0L:groupId;
+        this.groupId = (groupId == null || groupId < 0) ? 0L : groupId;
         this.label = label;
         this.properties = properties;
     }
@@ -70,8 +71,12 @@ public class NodeObject {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         NodeObject that = (NodeObject) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(groupId, that.groupId) &&
