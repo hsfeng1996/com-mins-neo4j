@@ -49,6 +49,9 @@ public interface Neo4jRepository extends org.springframework.data.neo4j.reposito
     @Query("MATCH (n:NodeObject) WHERE n.groupId={groupId} RETURN n")
     Iterable<NodeObject> findNodeObjects(@Param("groupId") Long groupId);
 
+    @Query("MATCH p=(n:NodeObject)-[*1..2]-(m:NodeObject) WHERE id(n)={id} AND n.groupId={groupId} RETURN m UNION ALL MATCH (n:NodeObject) WHERE id(n)={id} AND n.groupId={groupId} RETURN n as m")
+    Iterable<NodeObject> findNodeObjects(@Param("groupId") Long groupId, @Param("id") Long id, @Param("depth") Long depth);
+
     default void saveNodeObjects(Iterable<NodeObject> iterable){
         saveAll(iterable);
     }
@@ -67,6 +70,9 @@ public interface Neo4jRepository extends org.springframework.data.neo4j.reposito
 
     @Query("MATCH p=()-[r:RelationshipObject]->() WHERE r.groupId={groupId} RETURN p")
     Iterable<RelationshipObject> findRelationshipObjects(@Param("groupId") Long groupId);
+
+    @Query("MATCH p=(n:NodeObject)-[*1..2]-() WHERE id(n)={id} AND n.groupId={groupId} return p")
+    Iterable<RelationshipObject> findRelationshipObjects(@Param("groupId") Long groupId, @Param("id") Long id, @Param("depth") Long depth);
 
     default void saveRelationshipObjects(Iterable<RelationshipObject> iterable){
         saveAll(iterable);
@@ -88,6 +94,9 @@ public interface Neo4jRepository extends org.springframework.data.neo4j.reposito
         return new GraphObject(groupId, findNodeObjects(groupId), findRelationshipObjects(groupId));
     }
 
+    default GraphObject findGraphObject(Long groupId, Long id, Long depth){
+        return new GraphObject(groupId, findNodeObjects(groupId, id, depth), findRelationshipObjects(groupId, id, depth));
+    }
     default void saveGroupObject(GraphObject graphObject){
         saveNodeObjects(graphObject.getNodeObjects());
         saveRelationshipObjects(graphObject.getRelationshipObjects());
